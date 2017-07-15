@@ -1,0 +1,68 @@
+<div class="carousel fade-carousel slide" data-ride="carousel"
+	data-interval="4000" id="bs-carousel">
+	<!-- Overlay -->
+	<div class="overlay"></div>
+
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li ng-repeat="(key,val) in books" data-target="#bs-carousel"
+			data-slide-to="{{$index}}" ng-class="{active: $index==0}">
+	</ol>
+
+	<!-- Wrapper for slides -->
+	<form>
+		<div class="carousel-inner">
+			<div class="item slides" ng-repeat="book in books"
+				id="book{{$index}}" ng-class="{active: $index==0}">
+				<img ng-src='content/images/{{book.image}}' class='slide' />
+				<div class="hero">
+					<hgroup>
+						<h1>
+							<input required placeholder="Title" ng-click="edit($index);"
+								type='text' value='{{book.Title | capitalizeWord}}'
+								class='bookTitle' />
+						</h1>
+						<h3>
+							<input required placeholder="Autuor" ng-click="edit($index);"
+								type='text' value='{{book.Autuor}}' class='bookAutuor' />
+						</h3>
+						<h5>
+							<input required ng-click="edit($index);" type='date'
+								value='{{book.Date}}' class='bookDate' />
+						</h5>
+					</hgroup>
+
+					<button class="btn btn-info btn-lg editableDone"
+						ng-click="doneEdit();" role="button">Done</button>
+					<button class="btn btn-hero btn-lg delBT"
+						ng-click="openRemoveModal($index)" role="button">Click to
+						Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- Modal -->
+<div id="removeModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Remove Book!</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to remove the book : {{bookName | capitalizeWord}} ?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal"
+					ng-click="deleteButton(bookIndex)">Remove</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
